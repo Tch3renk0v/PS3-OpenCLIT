@@ -1,0 +1,107 @@
+[CellSDK-Devel-Fedora-x86]
+name=IBM Cell SDK (CellSDK-Devel-Fedora, x86)
+baseurl=file:///opt/cell/yum-repos/CellSDK-Devel-Fedora/x86 http://7track.org/~durandal/ps3dox/CELLSDK/repos/CellSDK-Devel-Fedora_3.1.0.0.0/x86
+enabled=0
+retries=3
+timeout=30
+failovermethod=priority
+metadata_expire=0
+
+[CellSDK-Devel-Fedora-x86_64]
+name=IBM Cell SDK (CellSDK-Devel-Fedora, x86_64)
+baseurl=file:///opt/cell/yum-repos/CellSDK-Devel-Fedora/x86_64 http://7track.org/~durandal/ps3dox/CELLSDK/repos/CellSDK-Devel-Fedora_3.1.0.0.0/x86_64
+retries=3
+timeout=30
+failovermethod=priority
+metadata_expire=0
+
+[CellSDK-Devel-Fedora-ppc64]
+name=IBM Cell SDK (CellSDK-Devel-Fedora, ppc64)
+baseurl=file:///opt/cell/yum-repos/CellSDK-Devel-Fedora/ppc64 http://7track.org/~durandal/ps3dox/CELLSDK/repos/CellSDK-Devel-Fedora_3.1.0.0.0/ppc64
+enabled=0
+retries=3
+timeout=30
+failovermethod=priority
+metadata_expire=0
+
+[CellSDK-Devel-Fedora-cbea]
+name=IBM Cell SDK (CellSDK-Devel-Fedora, cbea)
+baseurl=file:///opt/cell/yum-repos/CellSDK-Devel-Fedora/cbea http://7track.org/~durandal/ps3dox/CELLSDK/repos/CellSDK-Devel-Fedora_3.1.0.0.0/cbea
+enabled=1
+retries=3
+timeout=30
+failovermethod=priority
+metadata_expire=0
+
+[CellSDK-Extras-Fedora-x86]
+name=IBM Cell SDK (CellSDK-Extras-Fedora, x86)
+baseurl=file:///opt/cell/yum-repos/CellSDK-Extras-Fedora/x86 http://7track.org/~durandal/ps3dox/CELLSDK/repos/CellSDK-Extras-Fedora_3.1.0.0.0/x86
+enabled=0
+retries=3
+timeout=30
+failovermethod=priority
+metadata_expire=0
+
+[CellSDK-Extras-Fedora-x86_64]
+name=IBM Cell SDK (CellSDK-Extras-Fedora, x86_64)
+baseurl=file:///opt/cell/yum-repos/CellSDK-Extras-Fedora/x86_64 http://7track.org/~durandal/ps3dox/CELLSDK/repos/CellSDK-Extras-Fedora_3.1.0.0.0/x86_64
+enabled=0
+retries=3
+timeout=30
+failovermethod=priority
+metadata_expire=0
+
+[CellSDK-Extras-Fedora-ppc64]
+name=IBM Cell SDK (CellSDK-Extras-Fedora, ppc64)
+baseurl=file:///opt/cell/yum-repos/CellSDK-Extras-Fedora/ppc64 http://7track.org/~durandal/ps3dox/CELLSDK/repos/CellSDK-Extras-Fedora_3.1.0.0.0/ppc64
+enabled=0
+retries=3
+timeout=30
+failovermethod=priority
+metadata_expire=0
+
+[CellSDK-Extras-Fedora-cbea]
+name=IBM Cell SDK (CellSDK-Extras-Fedora, cbea)
+baseurl=file:///opt/cell/yum-repos/CellSDK-Extras-Fedora/cbea http://7track.org/~durandal/ps3dox/CELLSDK/repos/CellSDK-Extras-Fedora_3.1.0.0.0/cbea
+enabled=1
+retries=3
+timeout=30
+failovermethod=priority
+metadata_expire=0
+
+[CellSDK-Open-Fedora-x86]
+name=IBM Cell SDK (CellSDK-Open-Fedora, x86)
+baseurl=file:///opt/cell/yum-repos/CellSDK-Open-Fedora/x86 http://mirror.ncsa.uiuc.edu/sdkma/sdk3.1/CellSDK-Open-Fedora/x86 http://www.bsc.es/projects/deepcomputing/linuxoncell/cellsimulator/sdk3.1/CellSDK-Open-Fedora/x86 http://7track.org/~durandal/ps3dox/CELLSDK/sdkma/sdk3.1/CellSDK-Open-Fedora/x86
+enabled=0
+retries=3
+timeout=30
+failovermethod=priority
+metadata_expire=0
+
+[CellSDK-Open-Fedora-x86_64]
+name=IBM Cell SDK (CellSDK-Open-Fedora, x86_64)
+baseurl=file:///opt/cell/yum-repos/CellSDK-Open-Fedora/x86_64 http://mirror.ncsa.uiuc.edu/sdkma/sdk3.1/CellSDK-Open-Fedora/x86_64 http://www.bsc.es/projects/deepcomputing/linuxoncell/cellsimulator/sdk3.1/CellSDK-Open-Fedora/x86_64 http://7track.org/~durandal/ps3dox/CELLSDK/sdkma/sdk3.1/CellSDK-Open-Fedora/x86_64
+enabled=0
+retries=3
+timeout=30
+failovermethod=priority
+metadata_expire=0
+
+[CellSDK-Open-Fedora-ppc64]
+name=IBM Cell SDK (CellSDK-Open-Fedora, ppc64)
+baseurl=file:///opt/cell/yum-repos/CellSDK-Open-Fedora/ppc64 http://mirror.ncsa.uiuc.edu/sdkma/sdk3.1/CellSDK-Open-Fedora/ppc64 http://www.bsc.es/projects/deepcomputing/linuxoncell/cellsimulator/sdk3.1/CellSDK-Open-Fedora/ppc64 http://7track.org/~durandal/ps3dox/CELLSDK/sdkma/sdk3.1/CellSDK-Open-Fedora/ppc64
+
+enabled=0
+retries=3
+timeout=30
+failovermethod=priority
+metadata_expire=0
+
+[CellSDK-Open-Fedora-cbea]
+name=IBM Cell SDK (CellSDK-Open-Fedora, cbea)
+baseurl=file:///opt/cell/yum-repos/CellSDK-Open-Fedora/cbea http://mirror.ncsa.uiuc.edu/sdkma/sdk3.1/CellSDK-Open-fedora/cbea http://www.bsc.es/projects/deepcomputing/linuxoncell/cellsimulator/sdk3.1/CellSDKOpen-Fedora/cbea http://7track.org/~durandal/ps3dox/CELLSDK/sdkma/sdk3.1/CellSDK-Open-Fedora/cbea
+enabled=1
+retries=3
+timeout=30
+failovermethod=priority
+metadata_expire=0

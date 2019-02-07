@@ -1,0 +1,559 @@
+%% --------------------------------------------------------------- 
+%% Licensed Materials - Property of IBM                            
+%% 5724-S84                                                        
+%% (C) Copyright IBM Corp. 2006,2008, All Rights Reserved          
+%% US Government Users Restricted Rights - Use, duplication or     
+%% disclosure restricted by GSA ADP Schedule Contract with         
+%% IBM Corp.                                                       
+%% --------------------------------------------------------------- 
+%% PROLOG END TAG zYx                                              
+
+======================================================================
+README file for:
+
+IBM SDK for Multicore Acceleration, Version 3.1.0.0
+IBM Corp.
+24 October 2008
+
+======================================================================
+Contents:
+
+   Copyright statement
+   About this release
+   Statement of supported hardware and software
+   Installation information
+   Application issues
+   Notices and trademarks
+
+
+======================================================================
+Copyright statement
+
+     Copyright (C) 2008 IBM Corporation
+
+
+======================================================================
+About this release
+
+1. Edition notice
+
+     This edition applies to version 3, release 1, modification 0
+     (v3.1.0.0) of the IBM(TM) Software Development Kit for Multicore
+     Acceleration (SDK) and to all subsequent releases and modifications
+     until otherwise indicated in new editions.
+
+2. Overview
+
+     SDK 3.1 includes a suite of tools, libraries, frameworks and
+     examples that improve the ability to develop and optimize
+     applications and algorithms for IBM BladeCenter QS21 and QS22
+     blades. Version 3.1 of the SDK builds upon previous versions with
+     new libraries and enhancements that can improve ease of programming
+     and developer productivity, and enable higher performance of
+     applications and workloads. In addition, it allows developers to
+     plug in third-party ISV libraries to integrate with their
+     solutions.
+
+     IBM SDK for Multicore Acceleration includes the following
+     components:
+
+     o Eclipse-based Integrated Development Environment (IDE)
+     o Development libraries and frameworks
+     o GNU toolchain
+     o Performance tools
+     o Example code and tutorials
+
+3. New features in this release
+
+     For a general list of new features in this release of the SDK, see
+     the IBM SDK v3.1 Installation Guide topic, "New in this release."
+
+
+======================================================================
+Statement of supported hardware and software
+
+     See the SDK v3.1 Installation Guide for a list of hardware and
+     software requirements for the SDK.
+
+     Fedora 9 support
+
+     The support model for Fedora 9 is an "as-is" support model, free of
+     charge, provided via an IBM developerWorks Web forum on-line
+     support. The IBM developerWorks discussion forums let you ask
+     questions, share knowledge, ideas, and opinions about technologies
+     and programming techniques with other developerWorks users. Use the
+     forum content at your own risk. While IBM will attempt to provide a
+     timely response to all postings, the use of this developerWorks
+     forum does not guarantee a response to every question that is
+     posted, nor do we validate the answers or the code that are
+     offered.
+
+
+======================================================================
+Installation information
+
+1. Creating a Fedora 9 system image
+
+     Creating a Fedora 9 system image for use with an IBM BladeCenter
+     QS21 or QS22 might require additional steps, because some PowerPC
+     architecture systems will not handle the size of the default Fedora 9
+     ppc64.img netboot image. IBM BladeCenter JS2X series servers
+     which use the tg3 network driver might not function correctly due
+     to a malfunctioning driver included with Fedora.
+
+     The http://www.bsc.es Web site provides updated versions of the
+     ppc64.img netboot image and tg3 network driver to make installation
+     easier. Obtain these versions and follow the instructions below to
+     create a Fedora 9 system image.
+
+     a. Obtaining Updated Fedora 9 Files
+
+          Download updated files from the following location:
+
+          http://www.bsc.es/projects/deepcomputing/linuxoncell/cellsimulator/sdk3.1/fedora_patches
+
+          Installation of the Fedora 9 operating system requires the
+          updated network kernel driver module, tg3.ko. Download this
+          file from:
+
+          http://www.bsc.es/projects/deepcomputing/linuxoncell/cellsimulator/sdk3.1/fedora_patches/tg3.ko
+
+          Network installation of the Fedora 9 operating system requires
+          the updated ppc64.img netboot image. Download this file from:
+
+          http://www.bsc.es/projects/deepcomputing/linuxoncell/cellsimulator/sdk3.1/fedora_patches/ppc64.img
+
+     b. Fedora 9 DVD installation
+
+          During installation of Fedora 9 from DVD media, do not perform
+          the network configuration step until after the installation
+          completes and the updated network kernel module is installed. 
+          To install Fedora 9 from DVD, follow these steps:
+
+          1. Download the updated tg3.ko kernel module from:
+
+          http://www.bsc.es/projects/deepcomputing/linuxoncell/cellsimulator/sdk3.1/fedora_patches/tg3.ko
+
+          2. Copy the downloaded tg3.ko file onto a USB flash drive.
+
+          3. Boot from the DVD by typing the following command at the
+          yaboot prompt:
+
+          > linux vnc 
+
+          4. During the installation of Fedora 9, do not configure the
+          network at the network configuration screen.
+
+          5. When the installation finishes, DO NOT reboot the
+          BladeCenter. Instead, follow the following procedure to
+          install an updated network driver.
+
+               a. Allow the target BladeCenter to access to the USB port
+               on the BladeCenter chassis.
+
+               b. Insert the USB flash drive that contains the updated
+               tg3.ko driver.
+
+               c. Determine the device name of the USB flash drive, for
+               example by examining the output of "dmesg". In the next
+               step it is assumed that the device name is "/dev/sdb1".
+
+               d. Mount the flash drive and copy the tg3.ko file to the
+               kernel drivers directory by typing the following commands
+               at the console prompt:
+
+               # mount /dev/sdb1 /tmp
+               # cp /tmp/tg3.ko /mnt/sysimage/lib/modules/2.6.25-14.fc9.ppc64/kernel/drivers/net/
+
+               e. Finish the installation by allowing the BladeCenter to
+               reboot.
+
+          6. After the BladeCenter reboots, use the Fedora console tools
+          to configure the system for your network.
+
+     c. Installing Fedora 9 using netboot
+
+          If you want to install Fedora 9 onto a PowerPC architecture
+          BladeCenter using netboot, you must use an updated ppc64.img
+          netboot image and you must update the tg3.ko network kernel
+          driver module. To install Fedora 9 using netboot, follow these
+          steps:
+
+               1. Download the updated ppc64.img from:
+
+               http://www.bsc.es/projects/deepcomputing/linuxoncell/cellsimulator/sdk3.1/fedora_patches/ppc64.img
+
+               2. Copy the updated ppc64.img to the TFTP server and boot
+               the target BladeCenter to the Open Firmware (OF) boot prompt.
+
+               3. Change the base address by typing the following
+               commands at the OF prompt:
+
+               > setenv real-base 2000000
+               > reset-all
+
+               4. After the BladeCenter returns to the OF prompt, type
+               the following command to start a VNC based installation:
+
+               > boot net vnc
+
+               5. Use a vncviewer application to connect to the
+               BladeCenter. Next, install Fedora 9 as usual.
+
+               6. When the installation finishes, do not proceed to the
+               next step and do not reboot the BladeCenter.
+
+               7. Replace the installed tg3 kernel module with the
+               updated tg3 module. To do so, switch to a console prompt
+               and type the following commands as the root user:
+
+               # cd /mnt/sysimage/lib/modules/2.6.25-14.fc9.ppc64/kernel/drivers/net/
+               # rm tg3.ko
+               # zcat /lib/modules/2.6.25-14.fc9.ppc64/kernel/drivers/net/tg3.ko.gz > tg3.ko
+
+               8. Reboot the BladeCenter. Wait for the OF command prompt
+               to appear, then proceed to the next step.
+
+               9. Type the following commands at the OF command prompt:
+
+               > setenv real-base C00000
+               > reset-all
+
+               10. The firmware will reset. Next, boot the BladeCenter
+               from the hard disk.
+
+2. Kernel installation on Fedora 9
+
+     During the installation of the Fedora 9 operating system on
+     BladeCenter hardware, stop at the step before you install the SDK
+     kernel. Rename /etc/yaboot.conf to /etc/yaboot.conf.orig before
+     installing the SDK kernel.
+
+3. The IBM Full-System Simulator
+
+     The IBM Full-System Simulator has been removed from the SDK package,
+     and is now available separately. To obtain the Simulator, download
+     it from the following alphaWorks Web site:
+
+     http://www.alphaworks.ibm.com/tech/cellsystemsim
+
+4. Upgrading from SDK 3.0 on Red Hat(R) Enterprise Linux (RHEL) 5.1
+
+     SDK 3.1 requires RHEL 5.2. If you are upgrading an SDK 3.0 system
+     which is currently running on RHEL 5.1, you must upgrade to RHEL
+     5.2 before upgrading the SDK to version 3.1.
+
+5. Building the RHEL 5.2 sysroot
+
+     To cross compile applications on RHEL 5.2, you must build and
+     install the compiler sysroot, as these packages cannot be provided
+     with the SDK. Follow the instructions contained in the SDK
+     Installation Guide v3.1 in the topic, "Installing the IBM
+     Full-System Simulator (RHEL 5.2 only)."
+
+
+======================================================================
+Application issues
+
+1. Application lockups
+
+     It is possible to cause an application lockup when executing two or
+     more applications each using 9 or more SPEs. You can halt the
+     application by typing a "Ctrl-C." In this scenario the 16 physical
+     SPEs on an IBM BladeCenter QS22 are over-committed, which can cause
+     a problem. The workaround is to ensure that the SPEs are not
+     over-committed when executing one or more or applications.
+
+     The RHEL 5.2 kernel provides support for preemptive SPE scheduling. 
+     However, under heavy load the underlying SPE context switch code
+     does not work correctly in all circumstances. Since SPE context
+     switches are very costly in general, it is also advisable from a
+     performance perspective to avoid over-commit scenarios.
+
+2. Missing development libraries
+
+     Cross compilation on X86 and X86_64 machines uses the sysroot to
+     create CBEA target binaries. Compilation will fail if your code
+     needs a development package not already provided in the sysroot. If
+     this occurs, an error about a missing header file or library will
+     be printed.
+
+     To install the missing package into the sysroot, type the following
+     command:
+
+     # rpm -ivh --force --nodeps --noscripts --ignorearch \
+       --root=/opt/cell/sysroot <RPM>
+
+     where <RPM> is the RPM file (or files) that provide(s) the development
+     libraries.
+
+     Note: The architecture for the RPMs installed into the sysroot must
+     be ppc, ppc64, noarch or src (not i386, i686 or x86_64).
+
+3. Diskless rsync network performance on BladeCenter QS21 and QS22
+
+     The IBM BladeCenter QS21 and QS22 do not contain local hard-drives. 
+     When using rsync to copy real time data across network, understand
+     rsync performance limitations in case of network failure. In an
+     event of a network disruption, the client will notice a longer
+     delay and receive notification of a connection failure due to the
+     rsync protocol and Linux network connection setting parameters. 
+     This delay and latency can be optimized on your operating system by
+     changing environment variables and user requirements. Refer to the
+     networking documentation included with your Linux operating system
+     for additional information.
+
+4. 32-bit Eclipse on 64-bit Fedora 9
+
+     32-bit Eclipse will not run on the 64-bit Fedora 9 operating system
+     without additional configuration. Follow this procedure to enable
+     Eclipse to run:
+ 
+          a. Install cellide using the instructions provided in the
+          SDK v3.1 Installation Guide.
+
+          b. Install the 32-bit version of libcairo:
+
+          # yum install libcairo.i386
+
+          c. Install the 32-bit version of libXtst:
+
+          # yum install libXtst.i386
+
+     To start Eclipse, add "-vm" to the Eclipse command line, as
+     follows:
+
+     $ /opt/cell/ide/eclipse/eclipse -vm /opt/ibm/java2-i386-50/jre/bin/
+
+5. Building the oprofile source RPM (SRPM) for Fedora 9
+
+     The oprofile source package (oprofile-0.9.3-5bsc.src.rpm) does not
+     build on a F9 system due to a change in the compiler. As a
+     workaround, you can build the SRPM on a Fedora 7 system, then copy
+     the resultant RPM to a Fedora 9 system and install it there, where
+     it will function correctly.
+
+6. Applications that use all 16 SPEs might hang on RHEL 5.2
+
+     An application might hang if it uses all 16 SPEs and switches
+     frequently between SPEs on RHEL 5.2. To work around this problem,
+     modify your application to use less than 16 SPEs.
+
+7. BLAS_NUMSPES restriction
+
+     The DGER/SGER and DGEMM/SGEMM functions in the BLAS library might
+     fail with a bus error when using a specific number of SPEs. The
+     double precision functions DGER/SGEMM might have a bus error when
+     BLAS_NUMSPES is set to 6. The single precision functions SGER/SGEMM
+     might have a bus error when BLAS_NUMSPES is set to 3, 6 or 7. To
+     work around this issue, do not set BLAS_NUMSPES to a number that
+     fails.
+
+8. The crash-spu-commands-1.0-3 package contains an outdated crash
+   program
+
+     The crash-spu-commands-1.0-3.ppc.rpm package on the BSC Web site
+     contains an outdated crash program binary which does not function
+     correctly. Use the new crash binary provided by the
+     crash-4.0-7.2.src.rpm package, available from the
+     http://people.redhat.com/anderson/ Web site.
+
+     Follow this procedure to replace the crash binary on your system:
+
+     a. Download the updated crash RPM by typing this command:
+
+     $ wget http://people.redhat.com/anderson/crash-4.0-7.2.src.rpm
+
+     b. Rebuild the crash binary. This step might be time consuming. 
+     Type the following command as the user root:
+
+     # rpmbuild --rebuild crash-4.0-7.2.src.rpm
+
+     c. Install the new crash binary. The "--force" option overrides any
+     conflicts with the crash-spu-commands package. Type the following
+     command as the user root:
+
+     # rpm -ivh --force /usr/src/redhat/RPMS/ppc64/crash-4.0-7.2.ppc64.rpm
+
+9. Documentation index.html file has inaccurate links
+
+     The index file installed in /opt/cell/sdk/docs/index.html contains
+     some inaccurate links. Here is a list of documents with inaccurate
+     or missing links and where you can find them on your system:
+
+     The "Security V3.1 Installation and User's Guide" is located at:
+     /opt/cell/sdk/docs/lib/CBE_Secure_SDK_Guide_v3.0.pdf
+
+     The "SIMD Math Library API Reference Manual" is located at:
+     /opt/cell/sdk/docs/lib/CBE_SIMDmath_API_v3.1.pdf
+
+     The "Cell Broadband Engine Linux Programming Handbook, Version 1.1"
+     is located at:
+     /opt/cell/sdk/docs/programming/CBE_Handbook_v1.1_24APR2007_pub.pdf
+
+     However, the preceding document is replaced by the "Cell/B.E. 
+     Programming Handbook including IBM PowerXCell 8i," which is located
+     at:
+     /opt/cell/sdk/docs/programming/CellBE_PXCell_Handbook_v1.11_12May08_pub.pdf
+
+
+======================================================================
+Notices and trademarks
+
+     1. NOTICES
+
+     This information was developed for products and services offered in
+     the U.S.A. IBM(R) may not offer the products, services, or features
+     discussed in this document in other countries. Consult your local
+     IBM representative for information on the products and services
+     currently available in your area. Any reference to an IBM product,
+     program, or service is not intended to state or imply that only
+     that IBM product, program, or service may be used. Any functionally
+     equivalent product, program, or service that does not infringe any
+     IBM intellectual property right may be used instead. However, it is
+     the user's responsibility to evaluate and verify the operation of
+     any non-IBM product, program, or service.
+
+     IBM may have patents or pending patent applications covering
+     subject matter described in this document. The furnishing of this
+     document does not grant you any license to these patents. You can
+     send license inquiries, in writing, to:
+
+          IBM Director of Licensing
+          IBM Corporation
+          North Castle Drive
+          Armonk, NY 10504-1785
+          U.S.A.
+
+     For license inquiries regarding double-byte (DBCS) information,
+     contact the IBM Intellectual Property Department in your country or
+     send inquiries, in writing, to:
+
+          IBM World Trade Asia Corporation
+          Licensing 2-31 Roppongi 3-chome, Minato-ku
+          Tokyo 106-0032, Japan
+
+     INTERNATIONAL BUSINESS MACHINES CORPORATION PROVIDES THIS
+     PUBLICATION "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR
+     IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     NON-INFRINGEMENT, MERCHANTABILITY OR FITNESS FOR A PARTICULAR
+     PURPOSE. Some states do not allow disclaimer of express or implied
+     warranties in certain transactions, therefore, this statement may
+     not apply to you.
+
+     This information could include technical inaccuracies or
+     typographical errors. Changes are periodically made to the
+     information herein; these changes will be incorporated in new
+     editions of the publication. IBM may make improvements and/ or
+     changes in the product(s) and/or the program(s) described in this
+     publication at any time without notice.
+
+     Any references in this information to non-IBM Web sites are
+     provided for convenience only and do not in any manner serve as an
+     endorsement of those Web sites. The materials at those Web sites
+     are not part of the materials for this IBM product and use of those
+     Web sites is at your own risk.
+
+     IBM may use or distribute any of the information you supply in any
+     way it believes appropriate without incurring any obligation to
+     you. Licensees of this program who wish to have information about
+     it for the purpose of enabling: (i) the exchange of information
+     between independently created programs and other programs
+     (including this one) and (ii) the mutual use of the information
+     which has been exchanged, should contact:
+
+          IBM Corporation
+          Software Interoperability Coordinator, Department 49XA
+          3605 Highway 52 N
+          Rochester, MN 55901
+          U.S.A.
+
+     Such information may be available, subject to appropriate terms and
+     conditions, including in some cases, payment of a fee.
+
+     The licensed program described in this information and all licensed
+     material available for it are provided by IBM under terms of the
+     IBM Customer Agreement, IBM International Program License
+     Agreement, or any equivalent agreement between us.
+
+     Any performance data contained herein was determined in a
+     controlled environment. Therefore, the results obtained in other
+     operating environments may vary significantly. Some measurements
+     may have been made on development- level systems and there is no
+     guarantee that these measurements will be the same on generally
+     available systems. Furthermore, some measurements may have been
+     estimated through extrapolation. Actual results may vary. Users of
+     this document should verify the applicable data for their specific
+     environment. Information concerning non-IBM products was obtained
+     from the suppliers of those products, their published announcements
+     or other publicly available sources. IBM has not tested those
+     products and cannot confirm the accuracy of performance,
+     compatibility or any other claims related to non-IBM products. 
+     Questions on the capabilities of non-IBM products should be
+     addressed to the suppliers of those products.
+
+     All statements regarding IBM's future direction or intent are
+     subject to change or withdrawal without notice, and represent goals
+     and objectives only. All IBM prices shown are IBM's suggested
+     retail prices, are current and are subject to change without
+     notice. Dealer prices may vary.
+
+     This information is for planning purposes only. The information
+     herein is subject to change before the products described become
+     available. This information contains examples of data and reports
+     used in daily business operations. To illustrate them as completely
+     as possible, the examples include the names of individuals,
+     companies, brands, and products. All of these names are fictitious
+     and any similarity to the names and addresses used by an actual
+     business enterprise is entirely coincidental.
+
+     COPYRIGHT LICENSE:
+
+     This information contains sample application programs in source
+     language, which illustrate programming techniques on various
+     operating platforms. You may copy, modify, and distribute these
+     sample programs in any form without payment to IBM, for the
+     purposes of developing, using, marketing or distributing
+     application programs conforming to the application programming
+     interface for the operating platform for which the sample programs
+     are written. These examples have not been thoroughly tested under
+     all conditions. IBM, therefore, cannot guarantee or imply
+     reliability, serviceability, or function of these programs.
+
+     Each copy or any portion of these sample programs or any derivative
+     work, must include a copyright notice as follows: (C) (your company
+     name) (year). Portions of this code are derived from IBM Corp. 
+     Sample Programs. (C) Copyright IBM Corp. _enter the year or years_. 
+     All rights reserved.
+
+     If you are viewing this information in softcopy, the photographs
+     and color illustrations may not appear.
+
+
+     2. TRADEMARKS
+   
+     The following terms are trademarks of International Business
+     Machines Corporation in the United States, other countries, or
+     both:
+
+          developerWorks
+          IBM
+          PowerPC
+          PowerPC Architecture
+          Resource Link
+
+     Adobe, Acrobat, Portable Document Format (PDF), and PostScript are
+     either registered trademarks or trademarks of Adobe Systems
+     Incorporated in the United States, other countries, or both.
+
+     Cell Broadband Engine(TM) is a trademark of Sony Computer
+     Entertainment, Inc., in the United States, other countries, or
+     both.
+
+     Linux(TM) is a trademark of Linus Torvalds in the United States,
+     other countries, or both.
+
+     Other company, product or service names may be trademarks or
+     service marks of others.
+
+======================================================================
